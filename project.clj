@@ -4,6 +4,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring "1.6.3"]
                  [ring/ring-defaults "0.3.1"]
+                 [ring-logger "0.7.8"]
                  [compojure "1.6.0"]
                  [hiccup "1.0.5"]
                  [clj-http "3.8.0"]]
