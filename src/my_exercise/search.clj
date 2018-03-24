@@ -39,5 +39,6 @@
 
 (defn page [request]
   (html5
+    [:h2 "Elections"]
     (parse-elections (get-elections request))
    ))
