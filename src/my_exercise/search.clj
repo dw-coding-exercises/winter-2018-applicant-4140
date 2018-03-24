@@ -19,14 +19,18 @@
         "/place:"
         (clojure.string/lower-case place))))
 
-(defn render-election [election]
+(defn render-election 
+  "renders info for each individual election as unordered list"
+  [election]
   [:ul
     [:li (election :description)]
     [:li (election :date)]
     [:li (election :polling-place-url-shortened)]]
   )
 
-(defn parse-elections [unparsed-elections]
+(defn parse-elections
+  "parses raw EDN election information"
+  [unparsed-elections]
   (def raw-elections (unparsed-elections :body))
   (def elections (edn/read-string raw-elections))
   [:div {:class "election"}
