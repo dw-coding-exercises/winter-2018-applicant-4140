@@ -8,7 +8,7 @@
             [clj-http.client :as client]))
 
 (defn get-elections
-  "get elections by city and state"
+  "get unparsed elections by city and state"
   [request]
   (def state ((request :params) :state))
   (def place ((request :params) :city))
@@ -19,12 +19,21 @@
         "/place:"
         (clojure.string/lower-case place))))
 
-; (defn parse-elections [request]
-;   [:div {:class "parsed-elections"}
-;    (get-elections request)])
+(defn render-election [election]
+  [:ul
+    [:li (election :description)]
+    [:li (election :date)]
+    [:li (election :polling-place-url-shortened)]]
+  )
+
+(defn parse-elections [unparsed-elections]
+  (def raw-elections (unparsed-elections :body))
+  (def elections (edn/read-string raw-elections))
+  [:div {:class "election"}
+    (map render-election elections)]
+  )
 
 (defn page [request]
   (html5
-    (get-elections request)
-  ;  (parse-elections request)
+    (parse-elections (get-elections request))
    ))
